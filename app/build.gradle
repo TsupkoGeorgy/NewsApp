@@ -10,11 +10,11 @@ android {
 
     defaultConfig {
         applicationId "com.example.newsapp"
-        minSdk 21
+        minSdk 19
         targetSdk 31
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -39,6 +39,8 @@ android {
 
 dependencies {
 
+    //Need to build gradle for minSdk 19
+    implementation 'com.android.support:multidex:1.0.3'
 
     //Paging
     implementation "androidx.paging:paging-runtime-ktx:$version_paging"
