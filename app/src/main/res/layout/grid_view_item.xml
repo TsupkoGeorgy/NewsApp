@@ -8,18 +8,23 @@
 
         <variable
             name="article"
-            type="com.example.newsapp.data.model.ArticlesData" />
+            type="com.example.newsapp.data.network.news.ArticlesNews" />
     </data>
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="6dp"
             android:focusable="true"
             android:foreground="?selectableItemBackground"
             app:cardCornerRadius="16dp">
@@ -77,6 +82,7 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
+    </LinearLayout>
 
 
 </layout>
