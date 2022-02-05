@@ -1,4 +1,4 @@
-package com.example.androidcentranewsapp.data.network.news
+package com.example.newsapp.data.network.news
 
 import androidx.annotation.IntRange
 import com.squareup.moshi.Json

@@ -1,4 +1,5 @@
-package com.example.androidcentranewsapp.data.network.news
+package com.example.newsapp.data.network.news
+
 
 import com.example.newsapp.data.network.news.SourceNews
 import com.squareup.moshi.Json

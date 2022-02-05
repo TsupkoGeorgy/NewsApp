@@ -1,6 +1,6 @@
 package com.example.newsapp.data.network
 
-import com.example.androidcentranewsapp.data.network.news.NewsProperty
+import com.example.newsapp.data.network.news.NewsProperty
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
