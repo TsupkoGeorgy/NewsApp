@@ -32,20 +32,26 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 
-interface NewsApiService
-{
-    @GET("everything?apiKey=d58241590d5d4819a0be35c1bacd2754")
+interface NewsApiService {
+    @GET("everything?apiKey=e7a4d3493ec84a1a9232789bf7a943cf")
     suspend fun getEverythingPropertiesAsync(
         @Query("q") category: String,
         @Query("pageSize") pageSize: Int,
         @Query("page") page: Int,
-        @Query("language") language: String
+        @Query("language") language: String,
     ): Response<NewsProperty>
 
+
+    //https://newsapi.org/v2/top-headlines?country=us&apiKey=d58241590d5d4819a0be35c1bacd2754
+    @GET("top-headlines?apiKey=e7a4d3493ec84a1a9232789bf7a943cf")
+    suspend fun getTopHeadlinesPropertiesAsync(
+        @Query("category")category: String,
+        @Query("country") country: String,
+        @Query("language") language: String,
+    ): Response<NewsProperty>
 }
 
-object NewsApi
-{
+object NewsApi {
     val retrofitService: NewsApiService by lazy {
         retrofit.create(NewsApiService::class.java)
     }

@@ -13,7 +13,7 @@ data class ArticlesNews(
     val url: String,
     @Json(name = "urlToImage") val imgUrl: String?,
     val publishedAt: String,
-    val content: String,
+    val content: String?,
 )
 {
 
