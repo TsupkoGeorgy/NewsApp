@@ -17,24 +17,30 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
+            style="@style/AppTabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:textAlignment="center"
+            android:textDirection="firstStrongRtl"
             android:theme="@style/AppTabLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:tabGravity="fill"
             app:tabIndicatorAnimationMode="elastic"
-            app:tabIndicatorColor="@color/red"
+            app:tabIndicatorFullWidth="true"
             app:tabIndicatorHeight="2dp"
+            app:tabMaxWidth="0dp"
+            app:tabMinWidth="0dp"
             app:tabMode="scrollable"
             app:tabTextAppearance="@style/AppTabTextAppearance"
             tools:ignore="MissingConstraints">
 
+
             <com.google.android.material.tabs.TabItem
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
                 android:text="@string/tab_1" />
 
             <com.google.android.material.tabs.TabItem
