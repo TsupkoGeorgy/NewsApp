@@ -9,14 +9,10 @@
 
     <stroke
         android:width="20dp"
-        android:color="@android:color/transparent"></stroke>
+        android:color="@android:color/transparent" />
 
 
-    <gradient
-        android:angle="270"
-        android:startColor="#EDEDED"
-        android:endColor="#EDEDED"
-        />
+
 
 
 </shape>

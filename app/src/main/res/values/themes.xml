@@ -17,15 +17,21 @@
     <style name="AppTabLayout" parent="Widget.Design.TabLayout">
         <item name="tabIndicatorColor">@color/startColor</item>
         <item name="tabIndicatorHeight">4dp</item>
-        <item name="tabPaddingStart">6dp</item>
-        <item name="tabPaddingEnd">6dp</item>
+        <item name="tabPaddingStart">16dp</item>
+        <item name="tabPaddingEnd">16dp</item>
+        <item name="tabPaddingBottom">16dp</item>
+        <item name="tabPaddingTop">16dp</item>
+        <item name="indicatorColor">@color/red</item>
         <item name="tabBackground">@drawable/tab_color_selector</item>
         <item name="tabTextAppearance">@style/AppTabTextAppearance</item>
         <item name="tabSelectedTextColor">@color/white</item>
+        <item name="tabRippleColor">@color/noAlphaColor</item>
+
     </style>
 
     <!-- for text -->
     <style name="AppTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:radius">20dp</item>
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/black</item>
         <item name="textAllCaps">false</item>

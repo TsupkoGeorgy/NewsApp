@@ -11,9 +11,11 @@
     //
 
     <color name="startColor">#FF3A44</color>
-    <color name="endColor">#FFB3B6</color>
+    <color name="endColor">#FF8086</color>
     <color name="red">#FF3A44</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="noAlphaColor">#00FFFFFF</color>
+
 
 </resources>
