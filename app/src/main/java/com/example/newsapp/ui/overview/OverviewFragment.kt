@@ -20,7 +20,6 @@ import kotlinx.coroutines.launch
 
 class OverviewFragment : Fragment() {
 
-
     private val viewModel: OverviewViewModel by lazy {
         ViewModelProvider(this).get(OverviewViewModel::class.java)
     }
@@ -51,19 +50,15 @@ class OverviewFragment : Fragment() {
         })
 
         binding.grid.adapter = pagingAdapter
-
         binding.grid.adapter =
             pagingAdapter.withLoadStateFooter(LoaderStateAdapter { pagingAdapter.retry() })
 
 
-        viewModel.flow.observe(viewLifecycleOwner, Observer {
-            viewLifecycleOwner.lifecycleScope.launch {
-                pagingAdapter.submitData(viewModel.flow.value!!)
+        viewModel.pagingData.observe(viewLifecycleOwner, Observer {
+            lifecycleScope.launch {
+                pagingAdapter.submitData(viewModel.pagingData.value!!)
             }
         })
-
-
-
 
         binding.tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 
@@ -73,23 +68,10 @@ class OverviewFragment : Fragment() {
                 viewModel.updateFilterComplete()
             }
 
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-                // Handle tab reselect
-            }
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
 
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-
-
-            }
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
         })
-
-
-//        viewLifecycleOwner.lifecycleScope.launch {
-//            viewModel.flow.collectLatest {  pagingData ->
-//                pagingAdapter.submitData(pagingData)
-//            }
-//        }
 
         viewLifecycleOwner.lifecycleScope.launch {
             pagingAdapter.loadStateFlow.collectLatest { loadState ->
@@ -106,9 +88,8 @@ class OverviewFragment : Fragment() {
         })
 
         binding.grid.layoutManager = GridLayoutManager(context, 1)
-
-
         setHasOptionsMenu(true)
+
         return binding.root
     }
 
@@ -131,6 +112,4 @@ class OverviewFragment : Fragment() {
 //                || super.onOptionsItemSelected(item)
 //
 //    }
-
-
 }

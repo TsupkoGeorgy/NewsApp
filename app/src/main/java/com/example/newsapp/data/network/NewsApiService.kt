@@ -16,7 +16,7 @@ private const val BASE_URL = "https://newsapi.org/v2/"
 
 private const val KEY = "e7a4d3493ec84a1a9232789bf7a943cf"
 
-//
+
 private val moshi: Moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .build()
@@ -43,7 +43,7 @@ interface NewsApiService {
 
 
     //https://newsapi.org/v2/top-headlines?country=us&apiKey=d58241590d5d4819a0be35c1bacd2754
-    @GET("top-headlines?apiKey=e7a4d3493ec84a1a9232789bf7a943cf")
+    @GET("top-headlines?apiKey=d58241590d5d4819a0be35c1bacd2754")
     suspend fun getTopHeadlinesPropertiesAsync(
         @Query("category")category: String,
         @Query("country") country: String,
