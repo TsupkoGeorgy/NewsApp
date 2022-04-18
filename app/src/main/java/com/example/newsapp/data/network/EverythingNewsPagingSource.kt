@@ -6,11 +6,11 @@ import com.example.newsapp.data.network.news.ArticlesNews
 import retrofit2.HttpException
 
 
-
 class EverythingNewsPagingSource(
     private val newsApiService: NewsApiService,
-    private val query: String,
-    private val language: String
+    private val category: String,
+    private val country: String,
+    private val language: String,
 ) : PagingSource<Int, ArticlesNews>() {
 
     override fun getRefreshKey(state: PagingState<Int, ArticlesNews>): Int? {
@@ -20,14 +20,16 @@ class EverythingNewsPagingSource(
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ArticlesNews> {
-        if (query.isEmpty()) {
+        if (category.isEmpty()) {
             return LoadResult.Page(emptyList(), prevKey = null, nextKey = null)
         }
         try {
             val pageNumber: Int = params.key ?: INITIAL_PAGE_NUMBER
             val pageSize: Int = params.loadSize.coerceAtMost(10)
 
-            val response = newsApiService.getEverythingPropertiesAsync(query, pageSize, pageNumber, language)
+            //val response = newsApiService.getEverythingPropertiesAsync(query, pageSize, pageNumber, language)
+            val response =
+                newsApiService.getTopHeadlinesPropertiesAsync(category, country, language)
             if (response.isSuccessful) {
                 val articles = response.body()!!.articles
                 val nextKey = if (articles.size < pageSize) null else pageNumber + 1

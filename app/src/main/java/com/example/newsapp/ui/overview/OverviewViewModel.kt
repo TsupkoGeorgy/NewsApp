@@ -9,27 +9,29 @@ import com.example.newsapp.data.network.EverythingNewsPagingSource
 import com.example.newsapp.data.network.NewsApi
 import com.example.newsapp.data.network.news.ArticlesNews
 
-class OverviewViewModel: ViewModel() {
-
-
+class OverviewViewModel : ViewModel() {
 
     private val _filterUpdate = MutableLiveData<Boolean>()
     val filterUpdate: LiveData<Boolean>
         get() = _filterUpdate
 
-    private val _language = MutableLiveData<String>()
-    private val language: LiveData<String>
-        get() = _language
+    private val _category = MutableLiveData<String>("general")
+
+    private val _language = MutableLiveData<String>("en")
 
     private val _navigateToSelectedProperty = MutableLiveData<ArticlesNews?>()
     val navigateToSelectedProperty: LiveData<ArticlesNews?>
         get() = _navigateToSelectedProperty
 
-    val flow: LiveData<PagingData<ArticlesNews>> = Pager(
+    val pagingData: LiveData<PagingData<ArticlesNews>> = Pager(
         PagingConfig(pageSize = 5)
     ) {
-
-        EverythingNewsPagingSource(NewsApi.retrofitService, "sport", language.value!!)
+        EverythingNewsPagingSource(
+            NewsApi.retrofitService,
+            _category.value!!,
+            country = "us",
+            _language.value!!
+        )
     }.liveData.cachedIn(viewModelScope)
 
 
@@ -41,12 +43,16 @@ class OverviewViewModel: ViewModel() {
         _navigateToSelectedProperty.value = null
     }
 
-
-    init {
-        _language.value = "en"
-
-
+    fun updateCategory(category: String) {
+        _category.value = category
+        _filterUpdate.value = true
     }
+
+    fun updateCategoryComplete() {
+        _filterUpdate.value = false
+    }
+
+
     fun updateLanguage(filter: String) {
         _language.value = filter
         _filterUpdate.value = true
@@ -55,5 +61,4 @@ class OverviewViewModel: ViewModel() {
     fun updateFilterComplete() {
         _filterUpdate.value = false
     }
-
 }

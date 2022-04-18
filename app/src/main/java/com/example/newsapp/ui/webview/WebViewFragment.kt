@@ -8,18 +8,15 @@ import android.widget.ProgressBar
 import androidx.databinding.DataBindingUtil
 import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentWebviewBinding
-
-lateinit var progressBar: ProgressBar
-
+import android.webkit.WebChromeClient
 
 class WebViewFragment : Fragment() {
 
     lateinit var progressBar: ProgressBar
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         val binding: FragmentWebviewBinding = DataBindingUtil.inflate(
             inflater,
@@ -28,6 +25,8 @@ class WebViewFragment : Fragment() {
             false
         )
         progressBar = binding.progressBar
+        progressBar.progress
+
         var args = arguments?.let { WebViewFragmentArgs.fromBundle(it) }
 
         // inflate Web View
@@ -45,6 +44,12 @@ class WebViewFragment : Fragment() {
         }
         webView.loadUrl("${args?.url}")
 
+        webView.webChromeClient = object : WebChromeClient() {
+            override fun onProgressChanged(view: WebView, progress: Int) {
+                progressBar.progress = progress
+            }
+        }
+
         webView.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_BACK && event.action == MotionEvent.ACTION_UP && webView.canGoBack()) {
                 webView.goBack()
@@ -52,9 +57,8 @@ class WebViewFragment : Fragment() {
             }
             false
         })
+
         return binding.root
-
-
     }
 
     inner class WebViewClient : android.webkit.WebViewClient() {
@@ -65,6 +69,4 @@ class WebViewFragment : Fragment() {
             progressBar.visibility = View.GONE
         }
     }
-
-
 }

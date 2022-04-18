@@ -7,21 +7,18 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.androidcentranewsapp.ui.overview.LoaderStateAdapter
 import com.example.androidcentranewsapp.ui.overview.PagingAdapter
 import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentOverviewBinding
+import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 
 class OverviewFragment : Fragment() {
-
-
 
     private val viewModel: OverviewViewModel by lazy {
         ViewModelProvider(this).get(OverviewViewModel::class.java)
@@ -53,23 +50,28 @@ class OverviewFragment : Fragment() {
         })
 
         binding.grid.adapter = pagingAdapter
-
         binding.grid.adapter =
             pagingAdapter.withLoadStateFooter(LoaderStateAdapter { pagingAdapter.retry() })
 
 
-        viewModel.flow.observe(viewLifecycleOwner, Observer {
-            viewLifecycleOwner.lifecycleScope.launch {
-                pagingAdapter.submitData(viewModel.flow.value!!)
+        viewModel.pagingData.observe(viewLifecycleOwner, Observer {
+            lifecycleScope.launch {
+                pagingAdapter.submitData(viewModel.pagingData.value!!)
             }
         })
 
+        binding.tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 
-//        viewLifecycleOwner.lifecycleScope.launch {
-//            viewModel.flow.collectLatest {  pagingData ->
-//                pagingAdapter.submitData(pagingData)
-//            }
-//        }
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                // Handle tab select
+                viewModel.updateCategory(tab!!.text.toString())
+                viewModel.updateFilterComplete()
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+        })
 
         viewLifecycleOwner.lifecycleScope.launch {
             pagingAdapter.loadStateFlow.collectLatest { loadState ->
@@ -86,9 +88,8 @@ class OverviewFragment : Fragment() {
         })
 
         binding.grid.layoutManager = GridLayoutManager(context, 1)
-
-
         setHasOptionsMenu(true)
+
         return binding.root
     }
 
@@ -97,20 +98,18 @@ class OverviewFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        viewModel.updateLanguage(
-            when (item.itemId) {
-                R.id.show_eu_responce -> "en"
-                R.id.show_ru_responce -> "ru"
-                else -> "en"
-            }
-
-        )
-        viewModel.updateFilterComplete()
-        return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
-                || super.onOptionsItemSelected(item)
-
-    }
-
-
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        viewModel.updateLanguage(
+//            when (item.itemId) {
+//                R.id.show_eu_responce -> "en"
+//                R.id.show_ru_responce -> "ru"
+//                else -> "en"
+//            }
+//
+//        )
+//        viewModel.updateFilterComplete()
+//        return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
+//                || super.onOptionsItemSelected(item)
+//
+//    }
 }
