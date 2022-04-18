@@ -1,0 +1,8 @@
+package com.example.newsapp.ui.favorites
+
+import androidx.lifecycle.ViewModel
+
+class FavoritesViewModel : ViewModel()
+{
+    // TODO: Implement the ViewModel
+}

@@ -44,6 +44,11 @@ dependencies {
     //OkHttp for 19min sdk
     implementation('com.squareup.okhttp3:okhttp') { version { strictly '3.12.12'  } }
 
+    //Room
+    implementation "androidx.room:room-runtime:$version_room"
+    implementation "androidx.room:room-ktx:$version_room"
+    kapt "androidx.room:room-compiler:$version_room"
+
     //Paging
     implementation "androidx.paging:paging-runtime-ktx:$version_paging"
 
