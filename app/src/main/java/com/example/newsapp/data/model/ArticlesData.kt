@@ -8,7 +8,6 @@ import androidx.room.PrimaryKey
 data class ArticlesData(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0L,
-    val source: SourceData,
     val author: String?,
     val title: String,
     val description: String,
@@ -18,3 +17,4 @@ data class ArticlesData(
     val content: String,
 ) {
 }
+

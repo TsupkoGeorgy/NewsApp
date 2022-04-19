@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.NewsApp" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimary">@color/startColor</item>
         <item name="colorPrimaryVariant">@color/white</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
@@ -22,9 +22,9 @@
         <item name="tabPaddingBottom">16dp</item>
         <item name="tabPaddingTop">16dp</item>
         <item name="indicatorColor">@color/red</item>
-        <item name="tabBackground">@drawable/tab_color_selector</item>
+       <!--  <item name="tabBackground">@drawable/tab_color_selector</item>-->
         <item name="tabTextAppearance">@style/AppTabTextAppearance</item>
-        <item name="tabSelectedTextColor">@color/white</item>
+        <!-- <item name="tabSelectedTextColor">@color/white</item>-->
         <item name="tabRippleColor">@color/noAlphaColor</item>
 
     </style>

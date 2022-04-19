@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/news"
+        android:enabled="true"
+        android:icon="@drawable/newspaper"
+        android:title="News" />
+    <item
+        android:id="@+id/today"
+        android:enabled="true"
+        android:icon="@drawable/newspaper_variant_outline"
+        android:title="Today" />
+    <item
+        android:id="@+id/favorites"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_favorite_24"
+        android:title="Favorites" />
+</menu>
