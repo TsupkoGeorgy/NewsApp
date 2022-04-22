@@ -1,13 +1,12 @@
 package com.example.androidcentranewsapp.ui.overview
 
-import android.annotation.SuppressLint
-import android.content.Intent
-import android.net.Uri
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.newsapp.data.database.FavoritesDatabaseDao
 import com.example.newsapp.data.network.news.ArticlesNews
 import com.example.newsapp.databinding.GridViewItemBinding
 
@@ -22,17 +21,18 @@ class PagingAdapter(val onClickListener: OnClickListener) :
         override fun areContentsTheSame(oldItem: ArticlesNews, newItem: ArticlesNews): Boolean {
             return oldItem.url == newItem.url && oldItem.content == newItem.content
         }
-
     }
 
     class PagingViewHolder(private val binding: GridViewItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(ArticlesNews: ArticlesNews?) {
-
             binding.article = ArticlesNews
             binding.executePendingBindings()
 
+            binding.favoriteButton.setOnClickListener {
+                binding.favoriteButton.setColorFilter(Color.BLUE)
+            }
         }
     }
 
@@ -42,7 +42,6 @@ class PagingAdapter(val onClickListener: OnClickListener) :
         holder.itemView.setOnClickListener {
             onClickListener.onClick(ArticlesNewsProperty)
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagingViewHolder {

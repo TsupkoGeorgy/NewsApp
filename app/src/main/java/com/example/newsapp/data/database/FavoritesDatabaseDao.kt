@@ -8,20 +8,23 @@ import androidx.room.Update
 import com.example.newsapp.data.model.ArticlesData
 
 @Dao
-interface FavoriteDatabaseDao {
+interface FavoritesDatabaseDao {
 
     @Insert
-    fun insert(favorite:ArticlesData)
+    suspend fun insertFavorite(favorite:ArticlesData)
 
     @Update
-    fun update(favorite:ArticlesData)
+    suspend fun updateFavorite(favorite:ArticlesData)
+
+    @Query("DELETE FROM favorites_database WHERE id = :favoriteId" )
+    suspend fun deleteFavoritesById(favoriteId: Long) : Int
 
     @Query(value = "DELETE FROM favorites_database")
-    fun clear()
+    suspend fun clearAllFavoritesData()
 
     @Query(value = "SELECT * From favorites_database ORDER BY id DESC")
-    fun getAllFavorites(): LiveData<List<ArticlesData>>
+    suspend fun getAllFavorites(): List<ArticlesData>
 
     @Query("SELECT * FROM favorites_database WHERE id = :key")
-    fun getFavoriteWithId(key: Long): LiveData<ArticlesData>
+    suspend fun getFavoriteWithId(key: Long): ArticlesData
 }

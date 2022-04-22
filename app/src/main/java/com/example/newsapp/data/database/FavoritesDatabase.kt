@@ -7,23 +7,23 @@ import androidx.room.RoomDatabase
 import com.example.newsapp.data.model.ArticlesData
 
 @Database(entities = [ArticlesData::class], version = 1, exportSchema = false)
-abstract class FavoriteDatabase : RoomDatabase() {
+abstract class FavoritesDatabase : RoomDatabase() {
 
-    abstract val favoriteDatabaseDao: FavoriteDatabaseDao
+    abstract val favoritesDatabaseDao: FavoritesDatabaseDao
 
     companion object {
 
         @Volatile
-        private var INSTANCE: FavoriteDatabase? = null
+        private var INSTANCE: FavoritesDatabase? = null
 
-        fun getInstance(context: Context): FavoriteDatabase {
+        fun getInstance(context: Context): FavoritesDatabase {
             synchronized(this) {
                 var instance = INSTANCE
 
                 if (instance == null) {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
-                        FavoriteDatabase::class.java,
+                        FavoritesDatabase::class.java,
                         "favorite_database"
                     )
                         .fallbackToDestructiveMigration()

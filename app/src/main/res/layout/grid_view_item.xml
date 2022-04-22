@@ -40,9 +40,9 @@
                     android:adjustViewBounds="true"
                     android:scaleType="centerCrop"
                     app:imageUrl="@{article.imgUrl}"
-
                     tools:ignore="MissingConstraints"
                     tools:src="@tools:sample/backgrounds/scenic" />
+
                 <TextView
                     android:id="@+id/date_property"
                     android:layout_width="match_parent"
@@ -55,6 +55,7 @@
                     android:textSize="12sp"
                     app:dataFormat="@{article.publishedAt}"
                     tools:text="Data" />
+
                 <TextView
                     android:id="@+id/title_property"
                     android:layout_width="match_parent"
@@ -70,9 +71,6 @@
                     android:textStyle="bold"
                     tools:text="Title" />
 
-
-
-
                 <TextView
                     android:id="@+id/description"
                     android:layout_width="match_parent"
@@ -87,6 +85,13 @@
                     tools:text="Description" />
 
             </LinearLayout>
+            <ImageView
+                android:id="@+id/favoriteButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:src="@drawable/ic_baseline_favorite_24"
+                />
         </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
