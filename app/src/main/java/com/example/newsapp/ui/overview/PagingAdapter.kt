@@ -1,15 +1,12 @@
 package com.example.androidcentranewsapp.ui.overview
 
-import android.annotation.SuppressLint
-import android.content.Intent
 import android.graphics.Color
-import android.graphics.ColorFilter
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.newsapp.data.database.FavoritesDatabaseDao
 import com.example.newsapp.data.network.news.ArticlesNews
 import com.example.newsapp.databinding.GridViewItemBinding
 
