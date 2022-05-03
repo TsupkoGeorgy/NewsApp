@@ -14,7 +14,7 @@ data class ArticlesData(
     val url: String,
     val imgUrl: String?,
     val publishedAt: String,
-    val content: String,
+    val content: String?,
 ) {
 }
 

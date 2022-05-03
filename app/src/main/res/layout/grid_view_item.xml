@@ -7,7 +7,11 @@
 
         <variable
             name="article"
-            type="com.example.newsapp.data.network.news.ArticlesNews" />
+            type="com.example.newsapp.data.model.ArticlesData" />
+
+        <variable
+            name="clickListener"
+            type="com.example.newsapp.ui.overview.NewsActionListener" />
     </data>
 
 
@@ -31,6 +35,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:onClick="@{() -> clickListener.onNewsClicked(article)}"
                 android:orientation="vertical">
 
                 <ImageView
@@ -86,6 +91,7 @@
 
             </LinearLayout>
             <ImageView
+                android:onClick="@{() -> clickListener.onFavoriteClicked(article)}"
                 android:id="@+id/favoriteButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -2,6 +2,7 @@ package com.example.newsapp.ui.overview
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -10,8 +11,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.androidcentranewsapp.ui.overview.LoaderStateAdapter
-import com.example.androidcentranewsapp.ui.overview.PagingAdapter
 import com.example.newsapp.R
+import com.example.newsapp.data.database.FavoritesDatabase
+import com.example.newsapp.data.model.ArticlesData
 import com.example.newsapp.databinding.FragmentOverviewBinding
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.flow.collectLatest
@@ -19,10 +21,6 @@ import kotlinx.coroutines.launch
 
 
 class OverviewFragment : Fragment() {
-
-    private val viewModel: OverviewViewModel by lazy {
-        ViewModelProvider(this).get(OverviewViewModel::class.java)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,15 +33,25 @@ class OverviewFragment : Fragment() {
                 container,
                 false
             )
+        val application = requireNotNull(this.activity).application
+        val dataSource = FavoritesDatabase.getInstance(application).favoritesDatabaseDao
 
+        val viewModelFactory = OverviewViewModelFactory(dataSource, application)
+        val viewModel = ViewModelProvider(this, viewModelFactory).get(OverviewViewModel::class.java)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        val pagingAdapter = PagingAdapter(PagingAdapter.OnClickListener {
-            if (it != null) {
-                viewModel.displayPropertyDetails(it)
-            }
-        })
+        val pagingAdapter =
+            PagingAdapter(object : NewsActionListener {
+
+                override fun onFavoriteClicked(articlesNews: ArticlesData) {
+                    Toast.makeText(context, "Favorite", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                override fun onNewsClicked(articlesNews: ArticlesData) {
+                    viewModel.displayPropertyDetails(articlesNews)
+                }
+            })
 
         viewModel.filterUpdate.observe(viewLifecycleOwner, Observer {
             pagingAdapter.refresh()
@@ -52,7 +60,6 @@ class OverviewFragment : Fragment() {
         binding.grid.adapter = pagingAdapter
         binding.grid.adapter =
             pagingAdapter.withLoadStateFooter(LoaderStateAdapter { pagingAdapter.retry() })
-
 
         viewModel.pagingData.observe(viewLifecycleOwner, Observer {
             lifecycleScope.launch {
