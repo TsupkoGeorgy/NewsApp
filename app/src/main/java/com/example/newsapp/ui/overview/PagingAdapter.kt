@@ -1,54 +1,49 @@
-package com.example.androidcentranewsapp.ui.overview
+package com.example.newsapp.ui.overview
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.newsapp.data.database.FavoritesDatabaseDao
-import com.example.newsapp.data.network.news.ArticlesNews
+import com.example.newsapp.data.model.ArticlesData
 import com.example.newsapp.databinding.GridViewItemBinding
 
-class PagingAdapter(val onClickListener: OnClickListener) :
-    PagingDataAdapter<ArticlesNews, PagingAdapter.PagingViewHolder>(DiffCallback) {
+class PagingAdapter(private val newsActionListener: NewsActionListener) :
+    PagingDataAdapter<ArticlesData, PagingAdapter.PagingViewHolder>(DiffCallback) {
 
-    object DiffCallback : DiffUtil.ItemCallback<ArticlesNews>() {
-        override fun areItemsTheSame(oldItem: ArticlesNews, newItem: ArticlesNews): Boolean {
+    object DiffCallback : DiffUtil.ItemCallback<ArticlesData>() {
+        override fun areItemsTheSame(oldItem: ArticlesData, newItem: ArticlesData): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: ArticlesNews, newItem: ArticlesNews): Boolean {
+        override fun areContentsTheSame(oldItem: ArticlesData, newItem: ArticlesData): Boolean {
             return oldItem.url == newItem.url && oldItem.content == newItem.content
         }
     }
 
-    class PagingViewHolder(private val binding: GridViewItemBinding) :
+    class PagingViewHolder(private val newsActionListener: NewsActionListener, private val binding: GridViewItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(ArticlesNews: ArticlesNews?) {
-            binding.article = ArticlesNews
+        fun bind(articlesData: ArticlesData?) {
+            binding.article = articlesData
+            binding.clickListener = newsActionListener
             binding.executePendingBindings()
-
-            binding.favoriteButton.setOnClickListener {
-                binding.favoriteButton.setColorFilter(Color.BLUE)
-            }
         }
     }
 
     override fun onBindViewHolder(holder: PagingViewHolder, position: Int) {
-        val ArticlesNewsProperty = getItem(position)
-        holder.bind(ArticlesNewsProperty)
-        holder.itemView.setOnClickListener {
-            onClickListener.onClick(ArticlesNewsProperty)
-        }
+        val articlesNewsProperty = getItem(position)
+        holder.bind(articlesNewsProperty)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagingViewHolder {
-        return PagingViewHolder(GridViewItemBinding.inflate(LayoutInflater.from(parent.context)))
+        return PagingViewHolder(newsActionListener,GridViewItemBinding.inflate(LayoutInflater.from(parent.context)))
     }
+}
 
-    class OnClickListener(val clickListener: (ArticlesNews: ArticlesNews?) -> Unit) {
-        fun onClick(ArticlesNews: ArticlesNews?) = clickListener(ArticlesNews)
-    }
+interface NewsActionListener {
+
+    fun onNewsClicked(articlesNews: ArticlesData)
+
+    fun onFavoriteClicked(articlesNews: ArticlesData)
 }
