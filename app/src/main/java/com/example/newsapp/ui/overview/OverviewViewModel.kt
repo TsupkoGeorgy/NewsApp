@@ -10,11 +10,15 @@ import com.example.newsapp.data.database.FavoritesDatabaseDao
 import com.example.newsapp.data.model.ArticlesData
 import com.example.newsapp.data.network.EverythingNewsPagingSource
 import com.example.newsapp.data.network.NewsApi
+import kotlinx.coroutines.*
 
 class OverviewViewModel(
     val database: FavoritesDatabaseDao,
     application: Application
 ) : ViewModel() {
+
+    private val viewModelJob = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     private val _filterUpdate = MutableLiveData<Boolean>()
     val filterUpdate: LiveData<Boolean>
@@ -38,6 +42,19 @@ class OverviewViewModel(
             _language.value!!
         )
     }.liveData.cachedIn(viewModelScope)
+
+    fun addFavorite(articlesData: ArticlesData) {
+        //articlesData.selectedFavorites = true
+        uiScope.launch {
+            insert(articlesData)
+        }
+    }
+
+    private suspend fun insert(articlesData: ArticlesData) {
+        withContext(Dispatchers.IO) {
+            database.insertFavorite(articlesData)
+        }
+    }
 
     fun displayPropertyDetails(articlesData: ArticlesData) {
         _navigateToSelectedProperty.value = articlesData
@@ -65,4 +82,11 @@ class OverviewViewModel(
     fun updateFilterComplete() {
         _filterUpdate.value = false
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
+
+
 }

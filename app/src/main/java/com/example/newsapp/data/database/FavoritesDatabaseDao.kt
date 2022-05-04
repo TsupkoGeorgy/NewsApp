@@ -23,7 +23,7 @@ interface FavoritesDatabaseDao {
     suspend fun clearAllFavoritesData()
 
     @Query(value = "SELECT * From favorites_database ORDER BY id DESC")
-    suspend fun getAllFavorites(): List<ArticlesData>
+    fun getAllFavorites(): List<ArticlesData>
 
     @Query("SELECT * FROM favorites_database WHERE id = :key")
     suspend fun getFavoriteWithId(key: Long): ArticlesData

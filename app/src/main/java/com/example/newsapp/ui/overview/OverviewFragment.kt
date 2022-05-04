@@ -44,12 +44,11 @@ class OverviewFragment : Fragment() {
         val pagingAdapter =
             PagingAdapter(object : NewsActionListener {
 
-                override fun onFavoriteClicked(articlesNews: ArticlesData) {
-                    Toast.makeText(context, "Favorite", Toast.LENGTH_SHORT)
-                        .show()
+                override fun onFavoriteClicked(articlesData: ArticlesData) {
+                    viewModel.addFavorite(articlesData)
                 }
-                override fun onNewsClicked(articlesNews: ArticlesData) {
-                    viewModel.displayPropertyDetails(articlesNews)
+                override fun onNewsClicked(articlesData: ArticlesData) {
+                    viewModel.displayPropertyDetails(articlesData)
                 }
             })
 
