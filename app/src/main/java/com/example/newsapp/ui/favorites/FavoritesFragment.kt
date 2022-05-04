@@ -6,31 +6,31 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import com.example.newsapp.R
+import com.example.newsapp.data.database.FavoritesDatabase
+import com.example.newsapp.databinding.FavoritesFragmentBinding
 
-class FavoritesFragment : Fragment()
-{
-
-    companion object
-    {
-        fun newInstance() = FavoritesFragment()
-    }
-
-    private lateinit var viewModel: FavoritesViewModel
-
+class FavoritesFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View?
-    {
+    ): View? {
+
+        var binding: FavoritesFragmentBinding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.favorites_fragment,
+            container,
+            false
+        )
+
+        val application = requireNotNull(this.activity).application
+        val dataSource = FavoritesDatabase.getInstance(application).favoritesDatabaseDao
+
+        val viewModelFactory = FavoritesViewModelFactory(dataSource, application)
+
         return inflater.inflate(R.layout.favorites_fragment, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?)
-    {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(FavoritesViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
 
 }
