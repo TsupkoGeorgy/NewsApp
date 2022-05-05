@@ -14,7 +14,7 @@
         tools:context=".ui.favorites.FavoritesFragment">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/game_score_list"
+            android:id="@+id/favorites_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="16dp"

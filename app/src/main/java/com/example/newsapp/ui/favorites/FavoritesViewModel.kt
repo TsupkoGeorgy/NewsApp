@@ -17,4 +17,8 @@ class FavoritesViewModel(
 
     val favorites = dataSource.getAllFavorites()
 
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
 }

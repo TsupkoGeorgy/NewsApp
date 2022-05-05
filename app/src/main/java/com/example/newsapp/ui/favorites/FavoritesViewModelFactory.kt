@@ -11,7 +11,7 @@ class FavoritesViewModelFactory(
     private val application: Application
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(OverviewViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(FavoritesViewModel::class.java)) {
             return FavoritesViewModel(dataSource, application) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

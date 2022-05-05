@@ -30,4 +30,8 @@
             android:id="@+id/action_webViewFragment_to_overviewFragment"
             app:destination="@id/overviewFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.newsapp.ui.favorites.FavoritesFragment"
+        android:label="FavoritesFragment" />
 </navigation>
